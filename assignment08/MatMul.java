@@ -9,6 +9,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import java.util.ArrayList;
 public class MatMul {
   public static class TokenizerMapper
        extends Mapper<Object, Text, Text, IntWritable>{
@@ -23,21 +24,21 @@ public class MatMul {
       }
       if (myArray.get(0) == "a") {
           for (int i = 0; i < 5; i++) {
-              Text key = new Text();
-              Text value = new Text();
-              key.set(myArray.get(1) + "," + i);
-              value.set(myArray.get(0) + "," + myArray.get(2) + "," + myArray.get(3));
+              Text result_key = new Text();
+              Text result_value = new Text();
+              result_key.set(myArray.get(1) + "," + i);
+              result_value.set(myArray.get(0) + "," + myArray.get(2) + "," + myArray.get(3));
           }
       }
       else if (myArray.get(0) == "b") {
         for (int i = 0; i < 5; i++) {
-            Text key = new Text();
-            Text value = new Text();
-            key.set(i + "," + myArray.get(2));
-            value.set(myArray.get(0) + "," + myArray.get(1) + "," + myArray.get(3));
+            Text result_key = new Text();
+            Text result_value = new Text();
+            result_key.set(i + "," + myArray.get(2));
+            result_value.set(myArray.get(0) + "," + myArray.get(1) + "," + myArray.get(3));
         }
       }
-      context.write(key, value);
+      context.write(result_key, result_value);
     }
   }
   public static class IntSumReducer
@@ -47,8 +48,8 @@ public class MatMul {
                        Context context
                        ) throws IOException, InterruptedException {
       int sum = 0;
-      ArrayList<int> arrayA = new ArrayList<int>();
-      ArrayList<int> arrayB = new ArrayList<int>();
+      ArrayList<Integer> arrayA = new ArrayList<Integer>();
+      ArrayList<Integer> arrayB = new ArrayList<Integer>();
       for (int i = 0; i < 5; i++) {
           arrayA.add(0);
           arrayB.add(0);
