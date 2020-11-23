@@ -22,18 +22,16 @@ public class MatMul {
       while (itr.hasMoreTokens()) {
         myArray.add(itr.nextToken());
       }
+      Text result_key = new Text();
+      Text result_value = new Text();
       if (myArray.get(0) == "a") {
           for (int i = 0; i < 5; i++) {
-              Text result_key = new Text();
-              Text result_value = new Text();
               result_key.set(myArray.get(1) + "," + i);
               result_value.set(myArray.get(0) + "," + myArray.get(2) + "," + myArray.get(3));
           }
       }
       else if (myArray.get(0) == "b") {
         for (int i = 0; i < 5; i++) {
-            Text result_key = new Text();
-            Text result_value = new Text();
             result_key.set(i + "," + myArray.get(2));
             result_value.set(myArray.get(0) + "," + myArray.get(1) + "," + myArray.get(3));
         }
@@ -61,10 +59,10 @@ public class MatMul {
             myArray.add(itr.nextToken());
         }
         if (myArray.get(0) == "a") {
-            arrayA.set(myArray.get(1), myArray.get(2));
+            arrayA.set(Integer.parseInt(myArray.get(1)), Integer.parseInt(myArray.get(2)));
         }
         else if (myArray.get(0) == "a") {
-            arrayB.set(myArray.get(1), myArray.get(2));
+            arrayB.set(Integer.parseInt(myArray.get(1)), Integer.parseInt(myArray.get(2)));
         }
       }
       for (int i = 0; i < 5; i++) {
@@ -77,7 +75,7 @@ public class MatMul {
   public static void main(String[] args) throws Exception {
     Configuration conf = new Configuration();
     Job job = Job.getInstance(conf, "word count");
-    job.setJarByClass(WordCount.class);
+    job.setJarByClass(MatMul.class);
     job.setMapperClass(TokenizerMapper.class);
     // to reduce network bottleneck
     //job.setCombinerClass(IntSumReducer.class);
