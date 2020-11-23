@@ -12,8 +12,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import java.util.ArrayList;
 public class MatMul {
   public static class TokenizerMapper
-       extends Mapper<Object, Text, Text, IntWritable>{
-    private final static IntWritable one = new IntWritable(1);
+       extends Mapper<Object, Text, Text, Text>{
     private Text word = new Text();
     public void map(Object key, Text value, Context context
                     ) throws IOException, InterruptedException {
@@ -40,7 +39,7 @@ public class MatMul {
     }
   }
   public static class IntSumReducer
-       extends Reducer<Text,IntWritable,Text,IntWritable> {
+       extends Reducer<Text,Text,Text,IntWritable> {
     private IntWritable result = new IntWritable();
     public void reduce(Text key, Iterable<IntWritable> values,
                        Context context
