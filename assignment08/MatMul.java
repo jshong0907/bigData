@@ -27,13 +27,13 @@ public class MatMul {
         }
         Text result_key = new Text();
         Text result_value = new Text();
-        if (myArray.get(0) == "a") {
+        if (myArray.get(0).equals("a")) {
             for (int i = 0; i < 5; i++) {
                 result_key.set(myArray.get(1) + "," + i);
                 result_value.set(myArray.get(0) + "," + myArray.get(2) + "," + myArray.get(3));
             }
         }
-        else if (myArray.get(0) == "b") {
+        else if (myArray.get(0).equals("b")) {
           for (int i = 0; i < 5; i++) {
               result_key.set(i + "," + myArray.get(2));
               result_value.set(myArray.get(0) + "," + myArray.get(1) + "," + myArray.get(3));
@@ -63,10 +63,10 @@ public class MatMul {
         while (itr.hasMoreTokens()) {
             myArray.add(itr.nextToken());
         }
-        if (myArray.get(0) == "a") {
+        if (myArray.get(0).equals("a")) {
             arrayA.set(Integer.parseInt(myArray.get(1)), Integer.parseInt(myArray.get(2)));
         }
-        else if (myArray.get(0) == "a") {
+        else if (myArray.get(0).equals("b")) {
             arrayB.set(Integer.parseInt(myArray.get(1)), Integer.parseInt(myArray.get(2)));
         }
       }
