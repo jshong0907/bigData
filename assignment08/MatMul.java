@@ -74,7 +74,7 @@ public class MatMul {
         sum += arrayA.get(i) * arrayB.get(i);
       }
       result.set(sum);
-      context.write(key, result);
+      context.write(key, Integer.toString(result));
     }
   }
   public static void main(String[] args) throws Exception {
