@@ -45,9 +45,9 @@ public class MatMul {
     }
   }
   public static class IntSumReducer
-       extends Reducer<Text,Text,Text,IntWritable> {
+       extends Reducer<Text,Text,Text,Text> {
     private IntWritable result = new IntWritable();
-    public void reduce(Text key, Iterable<IntWritable> values,
+    public void reduce(Text key, Iterable<Text> values,
                        Context context
                        ) throws IOException, InterruptedException {
       int sum = 0;
@@ -57,7 +57,7 @@ public class MatMul {
           arrayA.add(0);
           arrayB.add(0);
       }
-      for (IntWritable value : values) {
+      for (Text value : values) {
         StringTokenizer itr = new StringTokenizer(value.toString(), ",");
         ArrayList<String> myArray = new ArrayList<String>();
         while (itr.hasMoreTokens()) {
