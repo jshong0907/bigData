@@ -72,7 +72,7 @@ public class MatMul {
       for (int i = 0; i < 5; i++) {
         sum += arrayA.get(i) * arrayB.get(i);
       }
-      context.write(key, Integer.toString(sum));
+      context.write(key, new Text(""+sum));
     }
   }
   public static void main(String[] args) throws Exception {
