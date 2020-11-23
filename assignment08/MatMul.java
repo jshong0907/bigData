@@ -20,8 +20,8 @@ public class MatMul {
       
       while (itr.hasMoreTokens()) {
         ArrayList<String> myArray = new ArrayList<String>();
-        substr = itr.nextToken();
-        StringTokenizer temp = new StringTokenizer(substr.toString().substring(1, substr.toString.length()), ", ");
+        String substr = itr.nextToken();
+        StringTokenizer temp = new StringTokenizer(substr.substring(1, substr.length()), ", ");
         while(temp.hasMoreTokens()) {
           myArray.add(temp.nextToken());
         }
