@@ -31,15 +31,17 @@ public class MatMul {
             for (int i = 0; i < 5; i++) {
                 result_key.set(myArray.get(1) + "," + i);
                 result_value.set(myArray.get(0) + "," + myArray.get(2) + "," + myArray.get(3));
+                context.write(result_key, result_value);
             }
         }
         else if (myArray.get(0).equals("\"b\"")) {
           for (int i = 0; i < 5; i++) {
               result_key.set(i + "," + myArray.get(2));
               result_value.set(myArray.get(0) + "," + myArray.get(1) + "," + myArray.get(3));
+              context.write(result_key, result_value);
           }
         }
-        context.write(result_key, result_value);
+        
         }
       
     }
