@@ -46,7 +46,6 @@ public class MatMul {
   }
   public static class IntSumReducer
        extends Reducer<Text,Text,Text,Text> {
-    private IntWritable result = new IntWritable();
     public void reduce(Text key, Iterable<Text> values,
                        Context context
                        ) throws IOException, InterruptedException {
@@ -73,8 +72,7 @@ public class MatMul {
       for (int i = 0; i < 5; i++) {
         sum += arrayA.get(i) * arrayB.get(i);
       }
-      result.set(sum);
-      context.write(key, Integer.toString(result));
+      context.write(key, Integer.toString(sum));
     }
   }
   public static void main(String[] args) throws Exception {
