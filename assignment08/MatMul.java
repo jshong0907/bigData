@@ -16,26 +16,32 @@ public class MatMul {
     private Text word = new Text();
     public void map(Object key, Text value, Context context
                     ) throws IOException, InterruptedException {
-      StringTokenizer itr = new StringTokenizer(value.toString().substring(1, value.toString().length()-1), ",");
-      ArrayList<String> myArray = new ArrayList<String>();
+      StringTokenizer itr = new StringTokenizer(value.toString(), "]");
+      
       while (itr.hasMoreTokens()) {
-        myArray.add(itr.nextToken());
-      }
-      Text result_key = new Text();
-      Text result_value = new Text();
-      if (myArray.get(0) == "a") {
-          for (int i = 0; i < 5; i++) {
-              result_key.set(myArray.get(1) + "," + i);
-              result_value.set(myArray.get(0) + "," + myArray.get(2) + "," + myArray.get(3));
-          }
-      }
-      else if (myArray.get(0) == "b") {
-        for (int i = 0; i < 5; i++) {
-            result_key.set(i + "," + myArray.get(2));
-            result_value.set(myArray.get(0) + "," + myArray.get(1) + "," + myArray.get(3));
+        ArrayList<String> myArray = new ArrayList<String>();
+        substr = itr.nextToken();
+        StringTokenizer temp = new StringTokenizer(substr.toString().substring(1, substr.toString.length()), ", ");
+        while(temp.hasMoreTokens()) {
+          myArray.add(temp.nextToken());
         }
-      }
-      context.write(result_key, result_value);
+        Text result_key = new Text();
+        Text result_value = new Text();
+        if (myArray.get(0) == "a") {
+            for (int i = 0; i < 5; i++) {
+                result_key.set(myArray.get(1) + "," + i);
+                result_value.set(myArray.get(0) + "," + myArray.get(2) + "," + myArray.get(3));
+            }
+        }
+        else if (myArray.get(0) == "b") {
+          for (int i = 0; i < 5; i++) {
+              result_key.set(i + "," + myArray.get(2));
+              result_value.set(myArray.get(0) + "," + myArray.get(1) + "," + myArray.get(3));
+          }
+        }
+        context.write(result_key, result_value);
+        }
+      
     }
   }
   public static class IntSumReducer
@@ -65,7 +71,7 @@ public class MatMul {
         }
       }
       for (int i = 0; i < 5; i++) {
-        sum += arrayA.get(i) * arrayB.get(i); 
+        sum += arrayA.get(i) * arrayB.get(i);
       }
       result.set(sum);
       context.write(key, result);
@@ -73,7 +79,7 @@ public class MatMul {
   }
   public static void main(String[] args) throws Exception {
     Configuration conf = new Configuration();
-    Job job = Job.getInstance(conf, "word count");
+    Job job = Job.getInstance(conf, "multipy matrix");
     job.setJarByClass(MatMul.class);
     job.setMapperClass(TokenizerMapper.class);
     // to reduce network bottleneck
