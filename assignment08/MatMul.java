@@ -16,7 +16,7 @@ public class MatMul {
     private Text word = new Text();
     public void map(Object key, Text value, Context context
                     ) throws IOException, InterruptedException {
-      StringTokenizer itr = new StringTokenizer(value.toString().substring(1, -1), ",");
+      StringTokenizer itr = new StringTokenizer(value.toString().substring(1, value.toString().length()-1), ",");
       ArrayList<String> myArray = new ArrayList<String>();
       while (itr.hasMoreTokens()) {
         myArray.add(itr.nextToken());
