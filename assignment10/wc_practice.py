@@ -31,7 +31,7 @@ if __name__ == "__main__":
 	outRDD = filtered.map(lambda x: (map_phase(x), 1)).reduceByKey(lambda x, y: x + y)
 	outRDD = outRDD.sortBy(lambda x: x[1])
 	outRDD.saveAsTextFile(sys.argv[3])
-	print(numTokyo) # print the number of Tokyo
+	print("numbers of Tokyo: " + numTokyo) # print the number of Tokyo
 
 
 
